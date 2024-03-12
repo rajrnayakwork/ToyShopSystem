@@ -14,8 +14,9 @@
                     <thead class="table">
                         <tr>
                             <th scope="col">Sr.No</th>
-                            <th scope="col">Branch Name</th>
+                            <th scope="col">Vendor Name</th>
                             <th scope="col">Category Name</th>
+                            <th scope="col">Sub Category Name</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -23,8 +24,16 @@
                         @foreach ($categories as $index => $category)
                             <tr>
                                 <th scope="row">{{ $index + 1 }}</th>
-                                <td>{{ $category->branch->name }}</td>
+                                <td>{{ $category->vendor->name }}</td>
                                 <td>{{ $category->name }}</td>
+                                <td>
+                                    {{ '|' }}
+                                    @foreach ($sub_categories as $sub_category)
+                                        @if ($category->id == $sub_category->category_id)
+                                            {{ $sub_category->name . ' | ' }}
+                                        @endif
+                                    @endforeach
+                                </td>
                                 <td>
                                     <a href="{{ route('category.edit', [$category->id]) }}"><button type="button"
                                             class="btn btn-outline-success">Edit</button></a>

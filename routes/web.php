@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BranchController;
+use App\Http\Controllers\VendorController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,13 +25,13 @@ Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 Route::group(['prefix' => 'admin','middleware' => ['role:admin']],function(){
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
 
-    Route::group(['prefix' => 'branch','middleware' => ['role:admin']],function(){
-        Route::get('/',[BranchController::class,'index'])->name('branch.index');
-        Route::get('/create',[BranchController::class,'create'])->name('branch.create');
-        Route::post('/',[BranchController::class,'store'])->name('branch.store');
-        Route::get('/{branch}/edit',[BranchController::class,'edit'])->name('branch.edit');
-        Route::post('/update',[BranchController::class,'update'])->name('branch.update');
-        Route::get('/{branch}',[BranchController::class,'destroy'])->name('branch.destroy');
+    Route::group(['prefix' => 'vendor','middleware' => ['role:admin']],function(){
+        Route::get('/',[VendorController::class,'index'])->name('vendor.index');
+        Route::get('/create',[VendorController::class,'create'])->name('vendor.create');
+        Route::post('/',[VendorController::class,'store'])->name('vendor.store');
+        Route::get('/{vendor}/edit',[VendorController::class,'edit'])->name('vendor.edit');
+        Route::post('/update',[VendorController::class,'update'])->name('vendor.update');
+        Route::get('/{vendor}',[VendorController::class,'destroy'])->name('vendor.destroy');
     });
     Route::group(['prefix' => 'category','middleware' => ['role:admin']],function(){
         Route::get('/',[CategoryController::class,'index'])->name('category.index');

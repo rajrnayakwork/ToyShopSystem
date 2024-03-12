@@ -1,11 +1,12 @@
 @extends('admin.layout.main-layout')
 @section('main-container')
     <div class="container w-50 mt-5">
-        <form method="POST" action="{{ route('category.store') }}">
+        <form method="POST" action="{{ route('category.update') }}">
             @csrf
+            <input type="hidden" name="id" value="{{ $category->id }}">
             <h1 class="p-3">Category</h1>
             <div class="card">
-                <h5 class="card-header">Create Category</h5>
+                <h5 class="card-header">Edit Category</h5>
                 <div class="card-body p-2">
                     <div class="row p-2">
                         <label for="colFormLabelLg" class="col-form-label col-form-label-lg">Vendor</label>
@@ -13,19 +14,23 @@
                             <select class="form-select" name="vendor" aria-label="Default select example">
                                 <option selected disabled>Open this select menu</option>
                                 @foreach ($vendors as $vendor)
-                                    <option value="{{ $vendor->id }}" @if (old('vendor') == $vendor->id) selected @endif>
+                                    <option
+                                        value="{{ $vendor->id }}"@if (old('vendor')) @if (old('vendor') == $vendor->id) selected @endif
+                                    @else @if ($category->vendor_id == $vendor->id) selected @endif @endif>
                                         {{ $vendor->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        @error('Vendor')
+                        @error('vendor')
                             <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
                     <div class="row p-2">
                         <label for="colFormLabelLg" class="col-form-label col-form-label-lg">Category Name</label>
                         <div class="col-sm-12">
-                            <input type="text" name="name" value="{{ old('name') }}"
+                            <input type="text" name="name"
+                                @if (old('name')) value="{{ old('name') }}"
+                            @else value="{{ $category->name }}" @endif
                                 class="form-control form-control-lg" id="colFormLabelLg">
                         </div>
                         @error('name')
@@ -43,6 +48,20 @@
                                     <div class="col-10">
                                         <input type="text" name="sub_categories[{{ $count }}]"
                                             value="{{ $value }}" class="form-control form-control-lg"
+                                            id="colFormLabelLg">
+                                    </div><button type="button" class="btn btn-danger col-2"
+                                        onclick="deleteSubCategory({{ $count }})">Delete</button>
+                                    @error('sub_categories.' . $count)
+                                        <div class="text-danger pb-1"> {{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @endforeach
+                        @else
+                            @foreach ($sub_categories as $count => $sub_category)
+                                <div class="row m-1" id="{{ $count }}">
+                                    <div class="col-10">
+                                        <input type="text" name="sub_categories[{{ $count }}]"
+                                            value="{{ $sub_category->name }}" class="form-control form-control-lg"
                                             id="colFormLabelLg">
                                     </div><button type="button" class="btn btn-danger col-2"
                                         onclick="deleteSubCategory({{ $count }})">Delete</button>

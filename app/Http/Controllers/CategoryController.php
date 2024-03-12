@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Vendor;
@@ -25,25 +26,19 @@ class CategoryController extends Controller
         return view('admin.category.create')->with(['vendors' => $vendors]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(CategoryRequest $request): RedirectResponse
     {
-        $request->validate([
-            'vendor' => 'bail|required',
-            'name' => 'bail|required|unique:categories|string|regex:/^[a-zA-Z ]+$/u|max:250',
-            'sub_categories' => 'bail|array',
-            'sub_categories.*' => 'bail|string|regex:/^[a-zA-Z ]+$/u|max:250',
-        ]);
         $category = new Category;
         $category->fill([
-            'vendor_id' => $request->vendor,
-            'name' => $request->name,
+            'vendor_id' => $request->input('vendor'),
+            'name' => $request->input('name'),
         ])->save();
-        if(!empty($request->sub_categories)){
-            foreach ($request->sub_categories as $value) {
+        if(!empty($request->input('sub_categories'))){
+            foreach ($request->input('sub_categories') as $value) {
                 $sub_category = new SubCategory;
-            $sub_category->fill([
-                'category_id' => $category->id,
-                'name' => $value,
+                $sub_category->fill([
+                    'category_id' => $category->id,
+                    'name' => $value,
                 ])->save();
             }
         }
@@ -58,19 +53,13 @@ class CategoryController extends Controller
         return view('admin.category.edit')->with(['vendors' => $vendors,'category' => $category,'sub_categories' => $sub_categories]);
     }
 
-    public function update(Request $request): RedirectResponse
+    public function update(CategoryRequest $request): RedirectResponse
     {
-        $request->validate([
-            'vendor' => 'bail|required',
-            'name' => 'bail|required|unique:categories|string|regex:/^[a-zA-Z ]+$/u|max:250',
-            'sub_categories' => 'bail|array',
-            'sub_categories.*' => 'bail|string|regex:/^[a-zA-Z ]+$/u|max:250',
-        ]);
         Category::where('id', $request->id)
-        ->update(['name' => $request->name,'vendor_id' => $request->vendor]);
+        ->update(['name' => $request->input('name'),'vendor_id' => $request->input('vendor')]);
         SubCategory::where('category_id',$request->id)->delete();
-        if(!empty($request->sub_categories)){
-            foreach ($request->sub_categories as $value) {
+        if(!empty($request->input('sub_categories'))){
+            foreach ($request->input('sub_categories') as $value) {
                 $sub_category = new SubCategory;
                 $sub_category->fill([
                     'category_id' => $request->id,

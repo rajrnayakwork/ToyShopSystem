@@ -18,7 +18,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        @error('Vendor')
+                        @error('vendor')
                             <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
@@ -39,17 +39,17 @@
                     <div id="subCategory">
                         @if (old('sub_categories'))
                             @foreach (old('sub_categories') as $count => $value)
-                                <div class="row m-1" id="{{ $count }}">
+                                <div class="row m-1 mb-4" id="{{ $count }}">
                                     <div class="col-10">
                                         <input type="text" name="sub_categories[{{ $count }}]"
                                             value="{{ $value }}" class="form-control form-control-lg"
                                             id="colFormLabelLg">
                                     </div><button type="button" class="btn btn-danger col-2"
                                         onclick="deleteSubCategory({{ $count }})">Delete</button>
-                                    @error('sub_categories.' . $count)
-                                        <div class="text-danger pb-1"> {{ $message }}</div>
-                                    @enderror
                                 </div>
+                                @error('sub_categories.' . $count)
+                                    <div class="text-danger mt-n4 ms-3"> {{ $message }}</div>
+                                @enderror
                             @endforeach
                         @endif
                     </div>

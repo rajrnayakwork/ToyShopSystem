@@ -1,6 +1,6 @@
 @extends('admin.layout.main-layout')
 @section('main-container')
-    <div class="container w-50 mt-5">
+    <div class="container mt-5">
         <div class="main pt-5">
             <div class="d-flex justify-content-center pb-1">
                 <div class="header d-flex justify-content-between w-100">

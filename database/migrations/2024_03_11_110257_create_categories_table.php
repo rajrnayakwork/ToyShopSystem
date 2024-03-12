@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (! Schema::hasTable('categories')) {
         Schema::create('categories', function (Blueprint $table) {
             $table->id('id');
             $table->string('name');
@@ -18,6 +19,7 @@ return new class extends Migration
             $table->foreign('vendor_id')->references('id')->on('vendors');
             $table->timestamps();
         });
+    }
     }
 
     /**

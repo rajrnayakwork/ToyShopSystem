@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VendorRequest;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 
@@ -18,14 +19,11 @@ class VendorController extends Controller
         return view('admin.vendor.create');
     }
 
-    public function store(Request $request)
+    public function store(VendorRequest $request)
     {
-        $request->validate([
-            'name' => 'bail|required|unique:vendors|string|regex:/^[a-zA-Z ]+$/u|max:250',
-        ]);
         $vendor = new Vendor;
         $vendor->fill([
-            'name' => $request->name,
+            'name' => $request->input('name'),
         ])->save();
         return redirect()->route('vendor.index');
     }
@@ -36,13 +34,10 @@ class VendorController extends Controller
         return view('admin.vendor.edit')->with(['vendor' => $vendor]);
     }
 
-    public function update(Request $request)
+    public function update(VendorRequest $request)
     {
-        $request->validate([
-            'name' => 'bail|required|unique:vendors|string|regex:/^[a-zA-Z ]+$/u|max:250',
-        ]);
         Vendor::where('id', $request->id)
-        ->update(['name' => $request->name]);
+        ->update(['name' => $request->input('name')]);
         return redirect()->route('vendor.index');
     }
 

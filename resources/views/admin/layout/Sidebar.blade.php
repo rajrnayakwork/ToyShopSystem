@@ -22,12 +22,12 @@
     <!-- Nav Item - Pages Collapse Menu -->
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('branch.index') }}">
-            <span>Branch</span></a>
+        <a class="nav-link" href="{{ route('vendor.index') }}">
+            <span>Vendor</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('category.index') }}">
-            <span>category</span></a>
+            <span>Category</span></a>
     </li>
 
     {{-- <li class="nav-item">

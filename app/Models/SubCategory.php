@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Category extends Model
+class SubCategory extends Model
 {
     use HasFactory;
 
-    protected $table = 'categories';
+    protected $table = 'sub_categories';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'name','vendor_id'
+        'name','category_id',
     ];
 
-    public function vendor(): BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(Vendor::class, 'vendor_id','id');
+        return $this->belongsTo(Category::class, 'category_id','id');
     }
 }

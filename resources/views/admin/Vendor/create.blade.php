@@ -6,8 +6,8 @@
             <h1 class="p-3">Vendor</h1>
             <div class="card">
                 <h5 class="card-header">Create Vendor</h5>
-                <div class="card-body p-4">
-                    <div class="row p-4">
+                <div class="card-body">
+                    <div class="row p-3">
                         <label for="colFormLabelLg" class="col-form-label col-form-label-lg">Vendor Name</label>
                         <div class="col-sm-10">
                             <input type="text" name="name" class="form-control form-control-lg" id="colFormLabelLg">

@@ -16,10 +16,10 @@
                             <div class="text-danger pb-1"> {{ $message }}</div>
                         @enderror
                     </div>
+                    <button type="submit" class="btn btn-primary ps-4 pr-4">Submit</button>
                     <a href="{{ route('vendor.index') }}" class="text-decoration-none">
                         <lable class="btn btn-danger ps-4 pr-4">Cancle</lable>
                     </a>
-                    <button type="submit" class="btn btn-primary ps-4 pr-4">Submit</button>
                 </div>
             </div>
         </form>

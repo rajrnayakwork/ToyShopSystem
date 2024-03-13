@@ -29,6 +29,10 @@
         <a class="nav-link" href="{{ route('category.index') }}">
             <span>Category</span></a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('product.index') }}">
+            <span>Product</span></a>
+    </li>
 
     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBranch"

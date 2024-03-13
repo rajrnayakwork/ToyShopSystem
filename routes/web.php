@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']],function(){
         Route::post('/update',[VendorController::class,'update'])->name('vendor.update');
         Route::get('/{vendor}',[VendorController::class,'destroy'])->name('vendor.destroy');
     });
+
     Route::group(['prefix' => 'category','middleware' => ['role:admin']],function(){
         Route::get('/',[CategoryController::class,'index'])->name('category.index');
         Route::get('/create',[CategoryController::class,'create'])->name('category.create');
@@ -40,5 +42,14 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']],function(){
         Route::get('/{category}/edit',[CategoryController::class,'edit'])->name('category.edit');
         Route::post('/update',[CategoryController::class,'update'])->name('category.update');
         Route::get('/{category}',[CategoryController::class,'destroy'])->name('category.destroy');
+    });
+
+    Route::group(['prefix' => 'product','middleware' => ['role:admin']],function(){
+        Route::get('/',[ProductController::class,'index'])->name('product.index');
+        Route::get('/create',[ProductController::class,'create'])->name('product.create');
+        Route::post('/',[ProductController::class,'store'])->name('product.store');
+        Route::get('/{product}/edit',[ProductController::class,'edit'])->name('product.edit');
+        Route::post('/update',[ProductController::class,'update'])->name('product.update');
+        Route::get('/{product}',[ProductController::class,'destroy'])->name('product.destroy');
     });
 });

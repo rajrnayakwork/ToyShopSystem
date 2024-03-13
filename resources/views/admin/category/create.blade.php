@@ -32,7 +32,7 @@
                             <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="row p-2">
+                    <div class="row p-3 d-flex justify-content-between">
                         <label for="colFormLabelLg" class="col-form-label col-form-label-lg col-4">Sub-Category Name</label>
                         <button type="button" class="btn btn-primary col-sm-1" onclick="addSubCategory()">Add</button>
                     </div>
@@ -57,10 +57,10 @@
                         <div class="text-danger pb-1"> {{ $message }}</div>
                     @enderror
                     <div class="pt-3">
+                        <button type="submit" class="btn btn-primary ps-4 pr-4">Submit</button>
                         <a href="{{ route('category.index') }}" class="text-decoration-none">
                             <lable class="btn btn-danger ps-4 pr-4">Cancle</lable>
                         </a>
-                        <button type="submit" class="btn btn-primary ps-4 pr-4">Submit</button>
                     </div>
                 </div>
             </div>

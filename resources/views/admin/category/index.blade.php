@@ -35,7 +35,7 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a href="{{ route('category.edit', [$category->id]) }}"><button type="button"
+                                    <a href="{{ route('category.edit', $category->id) }}"><button type="button"
                                             class="btn btn-outline-success">Edit</button></a>
                                     <a href="{{ route('category.destroy', $category->id) }}"><button type="button"
                                             class="btn btn-outline-danger">Delete</button></a>

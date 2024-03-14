@@ -13,6 +13,7 @@ class Category extends Model
 
     protected $table = 'categories';
     protected $primaryKey = 'id';
+    protected $with = 'subCategory';
     protected $fillable = [
         'name','vendor_id'
     ];

@@ -14,7 +14,6 @@
                     <thead class="table">
                         <tr>
                             <th scope="col">Sr.No</th>
-                            <th scope="col">Product Category</th>
                             <th scope="col">Product Sub Category</th>
                             <th scope="col">Product Name</th>
                             <th scope="col">Product price</th>
@@ -24,23 +23,32 @@
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Car</td>
-                            <td>Monster car</td>
-                            <td>jumbo Monster 1</td>
-                            <td>350</td>
-                            <td>made in india from kolkata letest product.</td>
-                            <td class="text-center">
-                                <div class="alert alert-success d-inline-flex ps-4 pr-4 pt-1 pb-1" role="alert">
-                                    Yes
-                                </div>
-                            </td>
-                            <td>
-                                <a href=""><button type="button" class="btn btn-outline-success">Edit</button></a>
-                                <a href=""><button type="button" class="btn btn-outline-danger">Delete</button></a>
-                            </td>
-                        </tr>
+                        @foreach ($products as $index => $product)
+                            <tr>
+                                <th scope="row">{{ $index + 1 }}</th>
+                                <td>{{ $product->subCategory->name }}</td>
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->price }}</td>
+                                <td>{{ $product->description }}</td>
+                                <td>
+                                    @if ($product->availability == 1)
+                                        <div class="alert alert-success d-inline-flex ps-4 pr-4 pt-1 pb-1" role="alert">
+                                            Yes
+                                        </div>
+                                    @else
+                                        <div class="alert alert-danger d-inline-flex ps-4 pr-4 pt-1 pb-1" role="alert">
+                                            No
+                                        </div>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('product.edit', $product->id) }}"><button type="button"
+                                            class="btn btn-outline-success">Edit</button></a>
+                                    <a href="{{ route('product.destroy', $product->id) }}"><button type="button"
+                                            class="btn btn-outline-danger">Delete</button></a>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

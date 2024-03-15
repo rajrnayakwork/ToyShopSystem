@@ -14,11 +14,13 @@
                     <thead class="table">
                         <tr>
                             <th scope="col">Sr.No</th>
-                            <th scope="col">Product Sub Category</th>
-                            <th scope="col">Product Name</th>
-                            <th scope="col">Product price</th>
-                            <th scope="col">Product description</th>
-                            <th scope="col">Product availability</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Sub Category</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">description</th>
+                            <th scope="col">availability</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -26,9 +28,11 @@
                         @foreach ($products as $index => $product)
                             <tr>
                                 <th scope="row">{{ $index + 1 }}</th>
+                                <td>{{ $product->subCategory->category->name }}</td>
                                 <td>{{ $product->subCategory->name }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->price }}</td>
+                                <td>{{ $product->quantity }}</td>
                                 <td>{{ $product->description }}</td>
                                 <td>
                                     @if ($product->availability == 1)
@@ -52,6 +56,7 @@
                     </tbody>
                 </table>
             </div>
+            {{ $products->links('pagination::bootstrap-5') }}
         </div>
     </div>
 @endsection

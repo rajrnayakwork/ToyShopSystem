@@ -1,7 +1,7 @@
 @extends('admin.layout.main-layout')
 @section('main-container')
     <div class="container w-50">
-        <form method="POST" action="{{ route('product.update') }}">
+        <form method="POST" action="{{ route('product.update', $product->id) }}">
             @csrf
             <input type="hidden" name="id" value="{{ $product->id }}">
             <h1 class="p-3">Product</h1>
@@ -46,13 +46,24 @@
                             <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="row p-2 ps-3">
+                    <div class="row p-2 ps-3 col-6">
                         <label for="colFormLabelLg" class="col-form-label col-form-label-lg">Product Price</label>
                         <div class="col-sm-12">
                             <input type="text" name="price" value="{{ $product->price }}"
                                 class="form-control form-control-lg" id="colFormLabelLg">
                         </div>
                         @error('price')
+                            <div class="text-danger"> {{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="row p-2 ps-3 col-6">
+                        <label for="colFormLabelLg" class="col-form-label col-form-label-lg">Product
+                            Quantity</label>
+                        <div class="col-sm-12">
+                            <input type="text" name="quantity" value="{{ $product->quantity }}"
+                                class="form-control form-control-lg" id="colFormLabelLg">
+                        </div>
+                        @error('quantity')
                             <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>

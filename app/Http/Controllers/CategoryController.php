@@ -58,8 +58,7 @@ class CategoryController extends Controller
         Category::where('id', $request->id)->update(['name' => $request->input('name'),'vendor_id' => $request->input('vendor')]);
 
         $ids = data_get($request->sub_categories,'*.id');
-
-        SubCategory::where('category_id',$request->id)->where('id','!=',$ids)->delete();
+        SubCategory::where('id','!=',$ids)->delete();
 
         if(!empty($request->input('sub_categories')))
         foreach ($request->sub_categories as $key => $value) {

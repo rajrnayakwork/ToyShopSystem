@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,7 +52,17 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']],function(){
         Route::get('/category/{category}',[ProductController::class,'showSubcategory']);
         Route::post('/',[ProductController::class,'storeOrUpdate'])->name('product.store');
         Route::get('/edit/{product}',[ProductController::class,'edit'])->name('product.edit');
-        Route::post('/update',[ProductController::class,'storeOrUpdate'])->name('product.update');
+        Route::post('/update/{product}',[ProductController::class,'storeOrUpdate'])->name('product.update');
         Route::get('/{product}',[ProductController::class,'destroy'])->name('product.destroy');
     });
+
+    Route::group(['prefix' => 'order','middleware' => ['role:admin']],function(){
+        Route::get('/',[OrderController::class,'index'])->name('order.index');
+    });
+
+    Route::group(['prefix' => 'cart','middleware' => ['role:admin']],function(){
+        Route::get('/',[CartController::class,'index']);//->name('cart.index')
+        Route::post('/',[CartController::class,'storeOrUpdate']);//->name('cart.store')
+    });
+
 });

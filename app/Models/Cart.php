@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Product extends Model
+class Cart extends Model
 {
     use HasFactory;
-    protected $table = 'products';
+    protected $table = 'carts';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'name','price','quantity','description','availability','sub_category_id',
+        'quantity','user_id','product_id',
     ];
 
-    public function subCategory(): HasOne
+    public function product(): HasOne
     {
-        return $this->hasOne(SubCategory::class,'id','sub_category_id');
+        return $this->hasOne(Product::class,'id','product_id');
     }
 }

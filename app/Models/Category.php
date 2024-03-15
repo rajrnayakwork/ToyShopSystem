@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Category extends Model
 {
@@ -18,9 +19,9 @@ class Category extends Model
         'name','vendor_id'
     ];
 
-    public function vendor(): BelongsTo
+    public function vendor(): HasOne
     {
-        return $this->belongsTo(Vendor::class, 'vendor_id','id');
+        return $this->hasOne(Vendor::class, 'id','vendor_id');
     }
 
     public function subCategory(): HasMany

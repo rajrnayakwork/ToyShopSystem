@@ -3,6 +3,7 @@
     <div class="container w-50">
         <form method="POST" action="{{ route('product.store') }}">
             @csrf
+            <input type="hidden" name="id" value="">
             <h1 class="p-3">Product</h1>
             <div class="card">
                 <h5 class="card-header">Create Product</h5>
@@ -45,13 +46,30 @@
                             <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="row p-2 ps-3">
+                    <div class="row ps-3 d-flex justify-content-between">
+                        <label for="colFormLabelLg" class="col-form-label col-form-label-lg col-4">Add Product
+                            Quantity</label>
+                        <button type="button" id="changebtn" class="btn btn-primary col-sm-1 mr-2"
+                            onclick="showQuantityInput()">Click</button>
+                    </div>
+                    <div id="price_id" class="row p-2 ps-3">
                         <label for="colFormLabelLg" class="col-form-label col-form-label-lg">Product Price</label>
                         <div class="col-sm-12">
                             <input type="text" name="price" value="{{ old('price') }}"
                                 class="form-control form-control-lg" id="colFormLabelLg">
                         </div>
                         @error('price')
+                            <div class="text-danger"> {{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="row p-2 ps-3 col-6" id="quantity">
+                        <label for="colFormLabelLg" class="col-form-label col-form-label-lg">Product
+                            Quantity</label>
+                        <div class="col-sm-12">
+                            <input type="text" name="quantity" value="0" class="form-control form-control-lg"
+                                id="colFormLabelLg">
+                        </div>
+                        @error('quantity')
                             <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
@@ -108,6 +126,23 @@
                     document.getElementById("sub_category").innerHTML = "";
                     console.log(error);
                 });
+        }
+
+        window.onload = function() {
+            showQuantityInput();
+        }
+
+        function showQuantityInput() {
+            let quantity_div = document.getElementById('quantity');
+            let price_div = document.getElementById('price_id');
+            if (quantity_div.style.display === "none") {
+                quantity_div.style.display = "block";
+                price_div.setAttribute("class", 'row p - 2 ps - 3 col-6');
+
+            } else {
+                quantity_div.style.display = "none";
+                price_div.setAttribute("class", 'row p - 2 ps - 3');
+            }
         }
     </script>
 @endsection

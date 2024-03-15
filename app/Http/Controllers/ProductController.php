@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index(): View
     {
-        $products = Product::with('subCategory')->get();
+        $products = Product::with('subCategory.category')->paginate(5);
         return view('admin.product.index')->with(['products' => $products]);
     }
 
@@ -28,18 +28,18 @@ class ProductController extends Controller
         return $sub_categories;
     }
 
-    public function storeOrUpdate(Request $request){
-        Product::updateOrCreate(['id' => $request->id],
+    public function storeOrUpdate(Request $request,Product $product){
+        Product::updateOrCreate(['id' => $product->id],
             ['name' => $request->name,
             'price' => $request->price,
+            'quantity' => $request->quantity,
             'description' => $request->description,
             'availability' => $request->availability,
             'sub_category_id' => $request->sub_category,]);
-            return Redirect::route('product.index');
+        return Redirect::route('product.index');
     }
 
     public function edit(Product $product){
-        // dd($product->toArray());
         $categories = Category::all();
         return view('admin.product.edit')->with(['product' => $product,'categories' => $categories]);
     }

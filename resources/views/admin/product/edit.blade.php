@@ -1,7 +1,7 @@
 @extends('admin.layout.main-layout')
 @section('main-container')
     <div class="container w-50">
-        <form method="POST" action="{{ route('product.update', $product->id) }}">
+        <form method="POST" action="{{ route('product.storeOrUpdate', $product->id) }}">
             @csrf
             <input type="hidden" name="id" value="{{ $product->id }}">
             <h1 class="p-3">Product</h1>

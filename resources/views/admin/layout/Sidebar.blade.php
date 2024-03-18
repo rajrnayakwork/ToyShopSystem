@@ -35,7 +35,11 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('order.index') }}">
-            <span>Order</span></a>
+            <span>Add Order</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('order.order_index') }}">
+            <span>View Order</span></a>
     </li>
 
     {{-- <li class="nav-item">

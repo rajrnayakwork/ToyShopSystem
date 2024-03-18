@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
@@ -14,10 +15,16 @@ class CartController extends Controller
     }
 
     public function storeOrUpdate(Request $request,Cart $cart){
-        $cart_data = Cart::updateOrCreate(['id' => $cart->id],
-            ['quantity' => $request->quantity,
-            'user_id' => $request->user_id,
-            'product_id' => $request->product_id]);
-        return $cart_data;
+        $cart->fill([
+                'quantity' => $request->quantity,
+                'user_id' => $request->user_id,
+                'product_id' => $request->product_id,
+            ])->save();
+        return $cart;
+    }
+
+    public function destroy(Cart $cart){
+        $cart->delete();
+        return Redirect::back();
     }
 }

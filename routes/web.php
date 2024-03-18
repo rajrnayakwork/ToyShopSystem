@@ -50,19 +50,23 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']],function(){
         Route::get('/',[ProductController::class,'index'])->name('product.index');
         Route::get('/create',[ProductController::class,'create'])->name('product.create');
         Route::get('/category/{category}',[ProductController::class,'showSubcategory']);
-        Route::post('/',[ProductController::class,'storeOrUpdate'])->name('product.store');
+        Route::post('/store-or-update/{product?}',[ProductController::class,'storeOrUpdate'])->name('product.storeOrUpdate');
         Route::get('/edit/{product}',[ProductController::class,'edit'])->name('product.edit');
-        Route::post('/update/{product}',[ProductController::class,'storeOrUpdate'])->name('product.update');
+        // Route::post('/update/{product}',[ProductController::class,'storeOrUpdate'])->name('product.update');
         Route::get('/{product}',[ProductController::class,'destroy'])->name('product.destroy');
     });
 
     Route::group(['prefix' => 'order','middleware' => ['role:admin']],function(){
         Route::get('/',[OrderController::class,'index'])->name('order.index');
+        Route::get('/payment/{cart}',[OrderController::class,'orderPayment'])->name('order.payment');
+        Route::post('/store-or-update/{order?}',[OrderController::class,'storeOrUpdate'])->name('order.storeOrUpdate');
+        Route::get('/order_index',[OrderController::class,'orderIndex'])->name('order.order_index');
     });
 
     Route::group(['prefix' => 'cart','middleware' => ['role:admin']],function(){
         Route::get('/',[CartController::class,'index']);//->name('cart.index')
-        Route::post('/',[CartController::class,'storeOrUpdate']);//->name('cart.store')
+        Route::post('/store-or-update/{cart?}',[CartController::class,'storeOrUpdate']);
+        Route::get('/destroy/{cart}',[CartController::class,'destroy']);
     });
 
 });

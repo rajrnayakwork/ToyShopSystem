@@ -29,13 +29,16 @@ class ProductController extends Controller
     }
 
     public function storeOrUpdate(Request $request,Product $product){
-        Product::updateOrCreate(['id' => $product->id],
-            ['name' => $request->name,
+
+        $product->fill([
+            'name' => $request->name,
             'price' => $request->price,
             'quantity' => $request->quantity,
             'description' => $request->description,
             'availability' => $request->availability,
-            'sub_category_id' => $request->sub_category,]);
+            'sub_category_id' => $request->sub_category,
+        ])->save();
+
         return Redirect::route('product.index');
     }
 

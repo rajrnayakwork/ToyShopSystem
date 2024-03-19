@@ -2,21 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
 {
-    public function check(){
-        if (Auth::check()) {
-            if (Auth::user()->role_type == 1) {
+    public function check()
+    {
+        if (Auth::check())
+        {
+            if (Auth::user()->role->name == 'admin')
+            {
                 return redirect()->route('admin.dashboard')->withSuccess('You have Successfully loggedin');
-            }else{
-                return Redirect::route('login');
-                // return redirect()->route('user.index',[Auth::user()->student_id])->withSuccess('You have Successfully loggedin');
             }
-        }else{
+            elseif (Auth::user()->role->name == 'manager')
+            {
+                return redirect()->route('manager.dashboard')->withSuccess('You have Successfully loggedin');
+            }
+            elseif (Auth::user()->role->name == 'customer')
+            {
+                return redirect()->route('customer.dashboard')->withSuccess('You have Successfully loggedin');
+            }
+            else
+            {
+                return $this->logout();
+            }
+        }else
+        {
             return Redirect::route('login');
         }
     }

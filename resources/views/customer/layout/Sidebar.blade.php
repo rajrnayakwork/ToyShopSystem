@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('customer.dashboard') }}">
         <div class="sidebar-brand-text mx-3">Vinayak Toy Shop</div>
     </a>
 
@@ -11,7 +11,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.dashboard') }}">
+        <a class="nav-link" href="{{ route('customer.dashboard') }}">
             {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
             <span>Dashboard</span></a>
     </li>
@@ -22,28 +22,8 @@
     <!-- Nav Item - Pages Collapse Menu -->
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('vendor.index') }}">
-            <span>Vendor</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('category.index') }}">
-            <span>Category</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('product.index') }}">
-            <span>Product</span></a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link" href="{{ route('order.index') }}">
             <span>Add Order</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('order.order_index') }}">
-            <span>View Order</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('permission.index') }}">
-            <span>Permission</span></a>
     </li>
 
     {{-- <li class="nav-item">

@@ -21,7 +21,7 @@
                                             <div class="d-flex justify-content-between align-items-center mb-4">
                                                 <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
                                                 <h3 class="fw-normal mb-0 text-black">
-                                                    Total Amount : <span id="totalAmount">1000</span>
+                                                    Total Amount : <span id="totalAmount">0</span>
                                                 </h3>
                                             </div>
 

@@ -13,11 +13,26 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::insert([
-            'user_name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('123456'),
-            'role_type' => 1,
-        ]);
+        $rows = [
+            [
+                'user_name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('123456'),
+                'role_id' => 1,
+            ],
+            [
+                'user_name' => 'manager',
+                'email' => 'manager@gmail.com',
+                'password' => Hash::make('123456'),
+                'role_id' => 2,
+            ],
+            [
+                'user_name' => 'customer',
+                'email' => 'customer@gmail.com',
+                'password' => Hash::make('123456'),
+                'role_id' => 3,
+            ],
+        ];
+        User::insert($rows);
     }
 }

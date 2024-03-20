@@ -12,9 +12,9 @@ class Role extends Model
     protected $table = 'roles';
     protected $primaryKey = 'id';
 
-    // public function permission(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Permission::class,'roles_permissions','role_id','permission_id');
-    // }
+    public function permission(): BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class,'roles_permissions','role_id','permission_id');
+    }
 
 }

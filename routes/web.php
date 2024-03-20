@@ -55,7 +55,6 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']],function(){
         Route::get('/category/{category}',[ProductController::class,'showSubcategory']);
         Route::post('/store-or-update/{product?}',[ProductController::class,'storeOrUpdate'])->name('product.storeOrUpdate');
         Route::get('/edit/{product}',[ProductController::class,'edit'])->name('product.edit');
-        // Route::post('/update/{product}',[ProductController::class,'storeOrUpdate'])->name('product.update');
         Route::get('/{product}',[ProductController::class,'destroy'])->name('product.destroy');
     });
 
@@ -67,15 +66,15 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']],function(){
     });
 
     Route::group(['prefix' => 'cart'],function(){
-        Route::get('/',[CartController::class,'index']);//->name('cart.index')
+        Route::get('/',[CartController::class,'index']);
         Route::post('/store-or-update/{cart?}',[CartController::class,'storeOrUpdate']);
         Route::get('/destroy/{cart}',[CartController::class,'destroy']);
     });
 
     Route::group(['prefix' => 'permission'],function(){
         Route::get('/',[PermissionController::class,'index'])->name('permission.index');
-        Route::get('/edit/{permission}',[PermissionController::class,'edit'])->name('permission.edit');
-        Route::post('/store-or-update/{permission?}',[PermissionController::class,'storeOrUpdate'])->name('permission.storeOrUpdate');
+        Route::get('/edit',[PermissionController::class,'edit'])->name('permission.edit');
+        Route::post('/store-or-update',[PermissionController::class,'storeOrUpdate'])->name('permission.storeOrUpdate');
     });
 });
 

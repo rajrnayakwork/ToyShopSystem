@@ -17,7 +17,6 @@ class CategorySeeder extends Seeder
             ['name' => 'Clothes','vendor_id' => 2],
             ['name' => 'Craft','vendor_id' => 3],
             ['name' => 'Bike','vendor_id' => 4],
-            ['name' => 'Phone','vendor_id' => 5],
         ];
         Category::insert($rows);
     }

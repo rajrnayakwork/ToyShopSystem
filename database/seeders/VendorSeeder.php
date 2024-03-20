@@ -17,7 +17,6 @@ class VendorSeeder extends Seeder
             ['name' => 'China Product'],
             ['name' => 'Delhi Product'],
             ['name' => 'Mumbai Product'],
-            ['name' => 'Japan Product'],
         ];
         Vendor::insert($rows);
     }

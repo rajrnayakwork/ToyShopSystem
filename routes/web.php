@@ -10,6 +10,7 @@ use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,8 +29,8 @@ Route::get('/login',[AuthController::class,'login'])->name('login');
 Route::post('/login',[AuthController::class,'loginPost'])->name('login.post');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
-Route::group(['prefix' => 'admin','middleware' => ['role:admin']],function(){
-    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+Route::group(['prefix' => 'admin'],function(){
+    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard')->middleware('role_or_permission:admin_dashboard');
 
     Route::group(['prefix' => 'vendor'],function(){
         Route::get('/',[VendorController::class,'index'])->name('vendor.index');
@@ -49,17 +50,19 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']],function(){
         Route::get('/{category}',[CategoryController::class,'destroy'])->name('category.destroy');
     });
 
-    Route::group(['prefix' => 'product'],function(){
-        Route::get('/',[ProductController::class,'index'])->name('product.index');
-        Route::get('/create',[ProductController::class,'create'])->name('product.create');
+    Route::group(['prefix' => 'product','middleware' => ['permission:product']],function(){
+        Route::get('/',[ProductController::class,'index'])->name('product.index')->middleware('role_or_permission:view_product');
+        Route::get('/create',[ProductController::class,'create'])->name('product.create')->middleware('role_or_permission:store_product');
         Route::get('/category/{category}',[ProductController::class,'showSubcategory']);
         Route::post('/store-or-update/{product?}',[ProductController::class,'storeOrUpdate'])->name('product.storeOrUpdate');
-        Route::get('/edit/{product}',[ProductController::class,'edit'])->name('product.edit');
-        Route::get('/{product}',[ProductController::class,'destroy'])->name('product.destroy');
+        Route::get('/edit/{product}',[ProductController::class,'edit'])->name('product.edit')->middleware('role_or_permission:edit_product');
+        Route::get('/{product}',[ProductController::class,'destroy'])->name('product.destroy')->middleware('role_or_permission:destroy_product');;
     });
 
     Route::group(['prefix' => 'order'],function(){
         Route::get('/',[OrderController::class,'index'])->name('order.index');
+        Route::get('/category/{category}',[OrderController::class,'showSubcategories']);
+        Route::get('/sub_category/{sub_category}',[OrderController::class,'showOrders']);
         Route::get('/payment/{cart}',[OrderController::class,'orderPayment'])->name('order.payment');
         Route::post('/store-or-update/{order?}',[OrderController::class,'storeOrUpdate'])->name('order.storeOrUpdate');
         Route::get('/order_index',[OrderController::class,'orderIndex'])->name('order.order_index');
@@ -79,9 +82,9 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']],function(){
 });
 
 Route::group(['prefix' => 'manager','middleware' => ['role:manager']],function(){
-    Route::get('/dashboard',[ManagerController::class,'dashboard'])->name('manager.dashboard');
+    Route::get('/dashboard',[ManagerController::class,'dashboard'])->name('manager.dashboard')->middleware('role_or_permission:manager_dashboard');
 });
 
 Route::group(['prefix' => 'customer','middleware' => ['role:customer']],function(){
-    Route::get('/dashboard',[CustomerController::class,'dashboard'])->name('customer.dashboard');
+    Route::get('/dashboard',[CustomerController::class,'dashboard'])->name('customer.dashboard')->middleware('role_or_permission:customer_dashboard');
 });

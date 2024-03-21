@@ -13,7 +13,7 @@ class SubCategorySeeder extends Seeder
     public function run(): void
     {
         $rows = [
-            ['name' => 'Tara','category_id' => 1],
+            ['name' => 'Tata','category_id' => 1],
             ['name' => 'BMW','category_id' => 1],
             ['name' => 'Suzuki','category_id' => 1],
             ['name' => 'Normal','category_id' => 2],

@@ -29,26 +29,6 @@ class PermissionSeeder extends Seeder
                 'category' => 'customer',
             ],
             [
-                'name' => 'view_vendor',
-                'display_name' => 'View Vendor',
-                'category' => 'vendor',
-            ],
-            [
-                'name' => 'store_vendor',
-                'display_name' => 'Store Vendor',
-                'category' => 'vendor',
-            ],
-            [
-                'name' => 'edit_vendor',
-                'display_name' => 'Edit Vendor',
-                'category' => 'vendor',
-            ],
-            [
-                'name' => 'destroy_vendor',
-                'display_name' => 'Destroy Vendor',
-                'category' => 'vendor',
-            ],
-            [
                 'name' => 'view_product',
                 'display_name' => 'View Product',
                 'category' => 'product',
@@ -64,9 +44,29 @@ class PermissionSeeder extends Seeder
                 'category' => 'product',
             ],
             [
+                'name' => 'view_vendor',
+                'display_name' => 'View Vendor',
+                'category' => 'vendor',
+            ],
+            [
                 'name' => 'destroy_product',
                 'display_name' => 'Destroy Product',
                 'category' => 'product',
+            ],
+            [
+                'name' => 'store_vendor',
+                'display_name' => 'Store Vendor',
+                'category' => 'vendor',
+            ],
+            [
+                'name' => 'edit_vendor',
+                'display_name' => 'Edit Vendor',
+                'category' => 'vendor',
+            ],
+            [
+                'name' => 'destroy_vendor',
+                'display_name' => 'Destroy Vendor',
+                'category' => 'vendor',
             ],
         ];
         Permission::insert($rows);

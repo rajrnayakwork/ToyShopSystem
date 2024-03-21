@@ -14,12 +14,9 @@ class CartController extends Controller
         return $carts;
     }
 
-    public function storeOrUpdate(Request $request,Cart $cart){
-        $cart->fill([
-                'quantity' => $request->quantity,
-                'user_id' => $request->user_id,
-                'product_id' => $request->product_id,
-            ])->save();
+    public function storeOrUpdate(Request $request){
+        $cart = Cart::updateOrCreate(['user_id' => $request->user_id,'product_id' => $request->product_id],
+            ['quantity' => $request->quantity]);
         return $cart;
     }
 

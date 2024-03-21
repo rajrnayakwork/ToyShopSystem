@@ -30,12 +30,13 @@ class ProductController extends Controller
 
     public function storeOrUpdate(Request $request,Product $product){
 
+        $request->quantity > 0 ? $availability = 1 : $availability = 0;
         $product->fill([
             'name' => $request->name,
             'price' => $request->price,
             'quantity' => $request->quantity,
             'description' => $request->description,
-            'availability' => $request->availability,
+            'availability' => $availability,
             'sub_category_id' => $request->sub_category,
         ])->save();
 

@@ -33,17 +33,20 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        @include('admin.layout.Sidebar')
+        @include('manager.layout.Sidebar')
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
-            @include('admin.layout.Topbar')
+            @include('manager.layout.Topbar')
 
             <!-- Main Content -->
             <div id="content">
-                <div class="container">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
                     @yield('main-container')
+
                 </div>
                 <!-- /.container-fluid -->
 

@@ -47,9 +47,9 @@
                         @enderror
                     </div>
                     <div class="row ps-3 d-flex justify-content-between">
-                        <label for="colFormLabelLg" class="col-form-label col-form-label-lg col-4">Add Product
+                        <label for="colFormLabelLg" class="col-form-label col-form-label-lg col-5">Add Product
                             Quantity</label>
-                        <button type="button" id="changebtn" class="btn btn-primary col-sm-1 mr-2"
+                        <button type="button" id="changebtn" class="btn btn-primary col-sm-2 mr-2"
                             onclick="showQuantityInput()">Click</button>
                     </div>
                     <div id="price_id" class="row p-2 ps-3">
@@ -80,21 +80,6 @@
                                 id="floatingTextarea"></textarea>
                         </div>
                         @error('description')
-                            <div class="text-danger"> {{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="row p-2 ps-3">
-                        <label for="colFormLabelLg" class="col-form-label col-form-label-lg">Product Availability</label>
-                        <div class="col-sm-12">
-                            <input type="radio" class="btn-check" name="availability" value="1" id="success-outlined"
-                                autocomplete="off">
-                            <label class="btn btn-outline-success" for="success-outlined">Available</label>
-
-                            <input type="radio" class="btn-check" name="availability" value="0" id="danger-outlined"
-                                autocomplete="off">
-                            <label class="btn btn-outline-danger" for="danger-outlined">Not Available</label>
-                        </div>
-                        @error('availability')
                             <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>

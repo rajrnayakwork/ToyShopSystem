@@ -1,8 +1,9 @@
 <!-- Topbar -->
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-3 static-top shadow-sm p-3 bg-body rounded">
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow-sm p-3 mb-5 bg-body rounded">
 
     {{-- <!-- Topbar Search -->
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <form
+        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
         <div class="input-group">
             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                 aria-label="Search" aria-describedby="basic-addon2">
@@ -16,13 +17,8 @@
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-        <div id="cart_button" style="display: none">
-            <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                onclick="showCartData()">
-                View Cart
-            </button>
-        </div>
         <div class="topbar-divider d-none d-sm-block"></div>
+
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"

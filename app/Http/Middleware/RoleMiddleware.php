@@ -16,7 +16,6 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next,$role = null): Response
     {
-        // dd($request->fullUrl());
         if (Auth::check()) {
             $rolename = Auth::user()->role->name;
             if ($rolename == 'admin' & $role == 'admin') {

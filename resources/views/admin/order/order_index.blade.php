@@ -1,6 +1,6 @@
 @extends('admin.layout.main-layout')
 @section('main-container')
-    <div class="main pt-5">
+    <div class="main">
         <div class="d-flex justify-content-center pb-1">
             <div class="header d-flex justify-content-between w-100">
                 <h4>Product</h4>

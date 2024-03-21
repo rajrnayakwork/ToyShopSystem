@@ -8,8 +8,6 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\SubCategory;
-use App\Models\User;
-use App\Models\Vendor;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -19,8 +17,18 @@ class OrderController extends Controller
 {
     public function index(): View
     {
-        $products = Product::with('subCategory')->get();
-        return view('admin.order.index')->with(['products' => $products]);
+        $categorys = Category::all();
+        return view('admin.order.index')->with(['categorys' => $categorys]);
+    }
+
+    public function showSubcategories($category){
+        $sub_categories = SubCategory::where('category_id',$category)->get();
+        return $sub_categories;
+    }
+
+    public function showOrders($sub_category){
+        $products = Product::where('sub_category_id',$sub_category)->with('subCategory')->get();
+        return $products;
     }
 
     public function orderPayment($id): View

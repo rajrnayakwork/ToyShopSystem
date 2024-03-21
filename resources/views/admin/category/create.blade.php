@@ -33,8 +33,8 @@
                         @enderror
                     </div>
                     <div class="row p-3 d-flex justify-content-between">
-                        <label for="colFormLabelLg" class="col-form-label col-form-label-lg col-4">Sub-Category Name</label>
-                        <button type="button" class="btn btn-primary col-sm-1" onclick="addSubCategory()">Add</button>
+                        <label for="colFormLabelLg" class="col-form-label col-form-label-lg col-5">Sub-Category Name</label>
+                        <button type="button" class="btn btn-primary col-sm-2" onclick="addSubCategory()">Add</button>
                     </div>
                     <div id="subCategory">
                         @if (old('sub_categories'))

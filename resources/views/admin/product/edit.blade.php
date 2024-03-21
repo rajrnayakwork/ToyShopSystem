@@ -76,21 +76,6 @@
                             <div class="text-danger"> {{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="row p-2 ps-3">
-                        <label for="colFormLabelLg" class="col-form-label col-form-label-lg">Product Availability</label>
-                        <div class="col-sm-12">
-                            <input type="radio" class="btn-check" name="availability" value="1" id="success-outlined"
-                                autocomplete="off" @if ($product->availability == 1) checked @endif>
-                            <label class="btn btn-outline-success" for="success-outlined">Available</label>
-
-                            <input type="radio" class="btn-check" name="availability" value="0" id="danger-outlined"
-                                autocomplete="off" @if ($product->availability == 0) checked @endif>
-                            <label class="btn btn-outline-danger" for="danger-outlined">Not Available</label>
-                        </div>
-                        @error('availability')
-                            <div class="text-danger"> {{ $message }}</div>
-                        @enderror
-                    </div>
                     <div class="pb-2 ps-3">
                         <button type="submit" class="btn btn-primary ps-4 pr-4">Submit</button>
                         <a href="{{ route('product.index') }}" class="text-decoration-none">

@@ -44,14 +44,14 @@ class PermissionSeeder extends Seeder
                 'category' => 'product',
             ],
             [
-                'name' => 'view_vendor',
-                'display_name' => 'View Vendor',
-                'category' => 'vendor',
-            ],
-            [
                 'name' => 'destroy_product',
                 'display_name' => 'Destroy Product',
                 'category' => 'product',
+            ],
+            [
+                'name' => 'view_vendor',
+                'display_name' => 'View Vendor',
+                'category' => 'vendor',
             ],
             [
                 'name' => 'store_vendor',

@@ -29,8 +29,9 @@ Route::get('/login',[AuthController::class,'login'])->name('login');
 Route::post('/login',[AuthController::class,'loginPost'])->name('login.post');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
-Route::group(['prefix' => 'admin'],function(){
-    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard')->middleware('role_or_permission:admin_dashboard');
+Route::prefix('admin')->middleware(['auth'])->group(function(){
+    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard')
+        ->middleware(['role_or_permission:admin_dashboard']);
 
     Route::group(['prefix' => 'vendor'],function(){
         Route::get('/',[VendorController::class,'index'])->name('vendor.index');
@@ -66,10 +67,11 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('/payment/{cart}',[OrderController::class,'orderPayment'])->name('order.payment');
         Route::post('/store-or-update/{order?}',[OrderController::class,'storeOrUpdate'])->name('order.storeOrUpdate');
         Route::get('/order_index',[OrderController::class,'orderIndex'])->name('order.order_index');
+        Route::get('/user-orders/{id?}',[OrderController::class,'userOrders']);
     });
 
     Route::group(['prefix' => 'cart'],function(){
-        Route::get('/',[CartController::class,'index']);
+        Route::get('/{id?}',[CartController::class,'index']);
         Route::post('/store-or-update/{cart?}',[CartController::class,'storeOrUpdate']);
         Route::get('/destroy/{cart}',[CartController::class,'destroy']);
     });
@@ -81,10 +83,10 @@ Route::group(['prefix' => 'admin'],function(){
     });
 });
 
-Route::group(['prefix' => 'manager','middleware' => ['role:manager']],function(){
+Route::group(['prefix' => 'manager'],function(){
     Route::get('/dashboard',[ManagerController::class,'dashboard'])->name('manager.dashboard')->middleware('role_or_permission:manager_dashboard');
 });
 
-Route::group(['prefix' => 'customer','middleware' => ['role:customer']],function(){
+Route::group(['prefix' => 'customer'],function(){
     Route::get('/dashboard',[CustomerController::class,'dashboard'])->name('customer.dashboard')->middleware('role_or_permission:customer_dashboard');
 });

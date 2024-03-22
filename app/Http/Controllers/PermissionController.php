@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\RoleOrPermission;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -12,10 +13,30 @@ class PermissionController extends Controller
     public function index()
     {
         $roles = Role::all();
-        $permissions = Permission::with('role')->get();
+        $permissions = Permission::with('roles')->get();
         $permission_group = [];
         $count = 0;
 
+        foreach ($permissions as $permission) {
+            $newPemirmission = [
+                'id' => $permission->id,
+                'name' => $permission->name,
+                'display_name' => $permission->display_name,
+                'roles' => [],
+            ];
+
+            foreach ($roles as $role) {
+                $newPemirmission['roles'][] = [
+                    'id' => $role->id,
+                    'name' => $role->name,
+                    'has_permission' => $this->hasPermission($permission, $role->id),
+                ];
+            }
+
+            $permission_group[$permission->category][] = $newPemirmission;
+        }
+
+        dd($permission_group);
 
         foreach ($permissions as $index => $permission_value)
         {
@@ -61,6 +82,12 @@ class PermissionController extends Controller
 
         }
         return view('admin.permission.index')->with(['permission_group' => $permission_group,'roles' => $roles]);
+    }
+
+    private function hasPermission($permission, $role_id)
+    {
+        $rolePermision = $permission->roles->where('id', $role_id)->first();
+        return $rolePermision ? true: false;
     }
 
     public function edit()

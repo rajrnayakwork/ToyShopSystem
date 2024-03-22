@@ -4,13 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class CartController extends Controller
 {
 
     public function index(){
-        $carts = Cart::with('product')->get();
+        $id = Auth::user()->id;
+        $check_carts = Cart::where('user_id',$id)->with('product')->get();
+        foreach ($check_carts as $cart) {
+            if($cart->product->quantity == 0){
+                Cart::where('id',$cart->id)->delete();
+            }
+            // elseif(){
+
+            // }
+        }
+        $carts = Cart::where('user_id',$id)->with('product')->get();
         return $carts;
     }
 

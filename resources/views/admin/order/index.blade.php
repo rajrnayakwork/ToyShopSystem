@@ -206,9 +206,6 @@
                 .then(function(response) {
                     document.getElementById('all_product').innerHTML = '';
                     response.data.forEach(product => {
-                        if (product.availability == 0) {
-                            return;
-                        }
                         let text = `<div class="col-lg-3 pt-4">
                                         <div class="card">
                                             <div class="card-body">

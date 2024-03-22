@@ -8,17 +8,20 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
 {
     public function index(): View
     {
+        $products = Product::with('subCategory')->get();
         $categorys = Category::all();
-        return view('admin.order.index')->with(['categorys' => $categorys]);
+        return view('admin.order.index')->with(['products' => $products ,'categorys' => $categorys]);
     }
 
     public function showSubcategories($category){
@@ -27,7 +30,7 @@ class OrderController extends Controller
     }
 
     public function showOrders($sub_category){
-        $products = Product::where('sub_category_id',$sub_category)->with('subCategory')->get();
+        $products = Product::where('sub_category_id',$sub_category)->where('quantity','>',0)->with('subCategory')->get();
         return $products;
     }
 
@@ -63,12 +66,39 @@ class OrderController extends Controller
                 'payment_method' => $request->payment_method,
                 'order_id' => $order->id,
             ])->save();
+            $product = Product::where('id', $value['product_id'])->first();
+            $product_quantity = $product['quantity'];
+            $value_quantity = $value['quantity'];
+            $quantity = $product_quantity - $value_quantity;
+            Product::where('id', $value['product_id'])->update(['quantity' => $quantity]);
+            Cart::where('user_id',$request->user_id)->delete();
         }
         return Redirect::route('order.order_index');
     }
 
-        public function orderIndex(): View
-        {
-            return view('admin.order.order_index');
+    public function orderIndex(): View
+    {
+        $users_orders = [];
+        $users = User::all();
+        foreach ($users as $user) {
+            $orders = Order::where('user_id',$user->id)->with(['user','product'])->get();
+            // dd($orders->toarray());
+            $user_data = $total_orders = $total_amount = null;
+            foreach ($orders as $order) {
+                $total_orders += $order->quantity;
+                $total_amount += $order->product->price * $order->quantity;
+            }
+            $user_data = [
+                'user_id'=> $user->id, 'user_name'=> $user->user_name,
+                'total_orders'=> $total_orders, 'total_amount'=> $total_amount,
+            ];
+            $users_orders[] = $user_data;
         }
+        return view('admin.order.order_index')->with('users_orders',$users_orders);
+    }
+
+    public function userOrders($id){
+        $orders = Order::where('user_id',$id)->with(['user','product'])->get();
+        return $orders;
+    }
 }

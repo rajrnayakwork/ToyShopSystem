@@ -45,26 +45,29 @@
         </div>
     </div>
 
-    <div id="update" class="container" style="display: none">
-        <div class="main">
-            <div class="d-flex justify-content-center pb-1">
-                <div class="header d-flex justify-content-between w-100">
-                    <h3>Permission</h3>
+    <form method="POST" action="{{ route('permission.storeOrUpdate') }}">
+        <div id="update" class="container" style="display: none">
+            <div class="main">
+                <div class="d-flex justify-content-center pb-1">
+                    <div class="header d-flex justify-content-between w-100">
+                        <h3>Permission</h3>
+                        <button type="submit" class="btn btn-outline-dark">Save
+                            changes</button>
+                    </div>
                 </div>
-            </div>
-            <div class="">
-                <table class="table">
-                    <thead class="table">
-                        <tr>
-                            <th scope="col">Sr.No</th>
-                            <th scope="col">Name</th>
-                            @foreach ($roles as $value)
-                                <th scope="col">{{ $value->name }}</th>
-                            @endforeach
-                        </tr>
-                    </thead>
-                    <tbody class="table">
-                        <form method="POST" action="{{ route('permission.storeOrUpdate') }}">
+                <div class="">
+                    <table class="table">
+                        <thead class="table">
+                            <tr>
+                                <th scope="col">Sr.No</th>
+                                <th scope="col">Name</th>
+                                @foreach ($roles as $value)
+                                    <th scope="col">{{ $value->name }}</th>
+                                    <input type="hidden" name="role_permission[{{ $value->id }}]">
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody class="table">
                             @csrf
                             @foreach ($permission_group as $group)
                                 <td colspan="{{ 2 + count($roles) }}">
@@ -84,15 +87,12 @@
                                     </tr>
                                 @endforeach
                             @endforeach
-                    </tbody>
-                </table>
-                <button type="submit" class="btn btn-outline-dark">Save
-                    changes</button>
-                </form>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-
+    </form>
     <script>
         function updatePermissions() {
             document.getElementById("view").style.display = 'none';

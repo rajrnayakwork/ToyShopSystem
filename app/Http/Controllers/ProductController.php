@@ -30,6 +30,13 @@ class ProductController extends Controller
 
     public function storeOrUpdate(Request $request,Product $product){
 
+        $request->validate([
+            'name' => 'bail|required|string|max:50',
+            'price' => 'bail|required|numeric|max:100000',
+            'quantity' => 'bail|required|numeric|max:10000',
+            'description' => 'bail|required|max:300',
+        ]);
+
         $request->quantity > 0 ? $availability = 1 : $availability = 0;
         $product->fill([
             'name' => $request->name,
@@ -50,7 +57,12 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        $product->delete();
+        try {
+            $product->delete();
+        } catch (\Throwable $th) {
+            session()->flash('message', "This product is can't delete because it is used somewhere.");
+            session()->flash('alert-class', 'alert-danger');
+        }
         return redirect()->route('product.index');
     }
 }

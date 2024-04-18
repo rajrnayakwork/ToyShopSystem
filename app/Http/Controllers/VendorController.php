@@ -10,7 +10,7 @@ class VendorController extends Controller
 {
     public function index()
     {
-        $vendors = Vendor::all();
+        $vendors = Vendor::paginate(5);
         return view('admin.vendor.index')->with(['vendors' => $vendors]);
     }
 
@@ -43,7 +43,12 @@ class VendorController extends Controller
 
     public function destroy($vendor)
     {
-        Vendor::find($vendor)->delete();
+        try {
+            Vendor::find($vendor)->delete();
+        } catch (\Throwable $th) {
+            session()->flash('message', "This vendor is can't delete because it is used somewhere.");
+            session()->flash('alert-class', 'alert-danger');
+        }
         return redirect()->route('vendor.index');
     }
 }

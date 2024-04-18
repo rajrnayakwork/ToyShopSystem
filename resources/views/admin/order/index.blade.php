@@ -150,7 +150,7 @@
                                         </button>
 
                                         <input id="cartQuantity${ cart.id }" min="0" max="${cart.product.quantity}" name="quantity"
-                                            value="${cart.quantity}" type="number" onchange="editCart(${ cart.id })"
+                                            value="${cart.quantity}" type="number" onchange="ChangeQuantity(3,'cartQuantity',${cart.id},${cart.product.quantity});editCart(${ cart.id })"
                                             class="form-control form-control-sm" />
 
                                         <button class="btn btn-link px-2"
@@ -252,6 +252,8 @@
             let input = document.getElementById(name + id);
             number = Number(input.value);
 
+            let ans = Math.sign(number);
+
             if (name == 'cartQuantity' && value == 2 && number == 1) {
                 destroyCart(id);
             }
@@ -269,8 +271,8 @@
                 } else {
                     input.value = number - 1;
                 }
-            } else if (value == 3 && number > quantity) {
-                input.value = quantity;
+            } else if (value == 3 && (number > quantity || ans == -1 || number == 0)) {
+                input.value = 1;
             }
         }
     </script>

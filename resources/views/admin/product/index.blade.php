@@ -1,5 +1,8 @@
 @extends('admin.layout.main-layout')
 @section('main-container')
+    @if (Session::has('message'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+    @endif
     <div class="main">
         <div class="d-flex justify-content-center pb-1">
             <div class="header d-flex justify-content-between w-100">

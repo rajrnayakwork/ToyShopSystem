@@ -31,9 +31,9 @@
                                     <td>{{ $permission['display_name'] }}</td>
                                     @foreach ($permission['roles'] as $role)
                                         @if ($role['has_permission'] == true)
-                                            <td><i class="fa fa-check-circle" style="font-size:36px;color:green"></i></td>
+                                            <td><i class="fa fa-check-circle" style="font-size:24px;color:green"></i></td>
                                         @else
-                                            <td><i class="fa fa-times-circle" style="font-size:36px;color:red"></i></td>
+                                            <td><i class="fa fa-times-circle" style="font-size:24px;color:red"></i></td>
                                         @endif
                                     @endforeach
                                 </tr>

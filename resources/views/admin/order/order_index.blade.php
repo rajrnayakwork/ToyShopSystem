@@ -7,7 +7,7 @@
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 id="user_name" class="fw-normal mb-0 text-black">User All Orders</h3>
-                            <button type="button" class="btn btn-outline-dark">Close</button>
+                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
                         </div>
                         <div id="orders_body" class="card rounded-3 mb-4">
                         </div>

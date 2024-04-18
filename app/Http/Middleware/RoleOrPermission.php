@@ -19,7 +19,7 @@ class RoleOrPermission
      */
     public function handle(Request $request, Closure $next, $permission = null): Response
     {
-            $user_permission = Auth::user()->role->permission->toArray();
+            $user_permission = Auth::user()->role->permissions->toArray();
             foreach ($user_permission as $value) {
                 if ($value['name'] == $permission) {
                     return $next($request);

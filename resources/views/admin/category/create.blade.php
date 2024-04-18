@@ -42,7 +42,7 @@
                                 <div class="row m-1 mb-4" id="{{ $count }}">
                                     <div class="col-10">
                                         <input type="text" name="sub_categories[{{ $count }}]"
-                                            value="{{ $value }}" class="form-control form-control-lg"
+                                            value="{{ $value['name'] }}" class="form-control form-control-lg"
                                             id="colFormLabelLg">
                                     </div><button type="button" class="btn btn-danger col-2"
                                         onclick="deleteSubCategory({{ $count }})">Delete</button>

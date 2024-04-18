@@ -23,9 +23,9 @@ class CategoryRequest extends FormRequest
     {
         return [
                 'vendor' => 'bail|required',
-                // 'name' => 'bail|required|unique:categories|string|regex:/^[a-zA-Z ]+$/u|max:250',
+                'name' => 'bail|required|string|regex:/^[a-zA-Z ]+$/u|max:250',
                 'sub_categories' => 'bail|array',
-                // 'sub_categories.*.*.name' => 'bail|required|string|regex:/^[a-zA-Z ]+$/u|max:250',
+                'sub_categories.*.*.name' => 'bail|required|string|regex:/^[a-zA-Z ]+$/u|max:250',
         ];
     }
 
@@ -35,7 +35,7 @@ class CategoryRequest extends FormRequest
             'vendor.required' => 'The vendor field is required.',
             'name.required' => 'The name field is required.',
             'name.regex' => 'The name field must be a string.',
-            // 'sub_categories.*.required' => 'The sub category field is required.',
+            'sub_categories.*.required' => 'The sub category field is required.',
             // 'sub_categories.*.regex' => 'The sub category field must be a string.',
         ];
     }

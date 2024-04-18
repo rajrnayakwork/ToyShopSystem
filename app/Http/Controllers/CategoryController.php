@@ -8,13 +8,16 @@ use App\Models\SubCategory;
 use App\Models\Vendor;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+
+use function Laravel\Prompts\alert;
 
 class CategoryController extends Controller
 {
     public function index(): View
     {
-        $categories = Category::with('vendor')->get();
+        $categories = Category::with('vendor')->paginate(5);
         $sub_categories = SubCategory::with('category')->get();
         return view('admin.category.index')->with(['categories' => $categories,'sub_categories' => $sub_categories]);
     }
@@ -27,22 +30,21 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request): RedirectResponse
     {
-        dd($request->all());
+            $category = new Category;
+            $category->fill([
+                'vendor_id' => $request->input('vendor'),
+                'name' => $request->input('name'),
+            ])->save();
 
-        $category = new Category;
-        $category->fill([
-            'vendor_id' => $request->input('vendor'),
-            'name' => $request->input('name'),
-        ])->save();
-        if(!empty($request->input('sub_categories'))){
-            foreach ($request->input('sub_categories') as $value) {
-                $sub_category = new SubCategory;
-                $sub_category->fill([
-                    'category_id' => $category->id,
-                    'name' => $value,
-                ])->save();
+            if(!empty($request->input('sub_categories'))){
+                foreach ($request->input('sub_categories') as $value) {
+                    $sub_category = new SubCategory;
+                    $sub_category->fill([
+                        'category_id' => $category->id,
+                        'name' => $value,
+                    ])->save();
+                }
             }
-        }
         return Redirect::route('category.index');
     }
 
@@ -52,13 +54,18 @@ class CategoryController extends Controller
         return view('admin.category.edit')->with(['vendors' => $vendors,'category' => $category]);
     }
 
-    public function update(CategoryRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
 
         Category::where('id', $request->id)->update(['name' => $request->input('name'),'vendor_id' => $request->input('vendor')]);
 
-        $ids = data_get($request->sub_categories,'*.id');
-        SubCategory::where('id','!=',$ids)->delete();
+        $ids = [];
+
+        foreach ($request->sub_categories as $value) {
+            isset($value['id']) && $ids[] = $value['id'];
+        }
+
+        SubCategory::where('category_id',$request->id)->whereNotIn('id',$ids)->delete();
 
         if(!empty($request->input('sub_categories')))
         foreach ($request->sub_categories as $key => $value) {
@@ -72,8 +79,13 @@ class CategoryController extends Controller
 
     public function destroy($category)
     {
-        SubCategory::where('category_id',$category)->delete();
-        Category::find($category)->delete();
+        try {
+            SubCategory::where('category_id',$category)->delete();
+            Category::find($category)->delete();
+        } catch (\Throwable $th) {
+            session()->flash('message', "This category is can't delete because it is used somewhere.");
+            session()->flash('alert-class', 'alert-danger');
+        }
         return redirect()->route('category.index');
     }
 }

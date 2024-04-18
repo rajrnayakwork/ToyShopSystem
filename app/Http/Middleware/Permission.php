@@ -17,7 +17,7 @@ class Permission
     public function handle(Request $request, Closure $next, $category = null): Response
     {
         if (Auth::check()) {
-            $user_permission = Auth::user()->role->permission->toArray();
+            $user_permission = Auth::user()->role->permissions->toArray();
             foreach ($user_permission as $value) {
                 if ($value['category'] == $category) {
                     return $next($request);

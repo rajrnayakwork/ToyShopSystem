@@ -17,26 +17,26 @@ class PermissionController extends Controller
         $permission_group = [];
         $count = 0;
 
-        foreach ($permissions as $permission) {
-            $newPemirmission = [
-                'id' => $permission->id,
-                'name' => $permission->name,
-                'display_name' => $permission->display_name,
-                'roles' => [],
-            ];
+        // foreach ($permissions as $permission) {
+        //     $newPemirmission = [
+        //         'id' => $permission->id,
+        //         'name' => $permission->name,
+        //         'display_name' => $permission->display_name,
+        //         'roles' => [],
+        //     ];
 
-            foreach ($roles as $role) {
-                $newPemirmission['roles'][] = [
-                    'id' => $role->id,
-                    'name' => $role->name,
-                    'has_permission' => $this->hasPermission($permission, $role->id),
-                ];
-            }
+        //     foreach ($roles as $role) {
+        //         $newPemirmission['roles'][] = [
+        //             'id' => $role->id,
+        //             'name' => $role->name,
+        //             'has_permission' => $this->hasPermission($permission, $role->id),
+        //         ];
+        //     }
 
-            $permission_group[$permission->category][] = $newPemirmission;
-        }
+        //     $permission_group[$permission->category][] = $newPemirmission;
+        // }
 
-        dd($permission_group);
+        // dd($permission_group);
 
         foreach ($permissions as $index => $permission_value)
         {
@@ -44,7 +44,7 @@ class PermissionController extends Controller
             $role_count = 0;
 
             foreach ($roles as $key => $value) {
-                foreach ($permission_value->role as $role_value)
+                foreach ($permission_value->roles as $role_value)
                 {
                     if ($value->id == $role_value->id) {
                         $role['id'] = $role_value->id;
@@ -99,7 +99,7 @@ class PermissionController extends Controller
     {
         foreach ($request->role_permission as $key => $value) {
             $role = Role::find($key);
-            $role->permission()->sync($value);
+            $role->permissions()->sync($value);
         }
         return Redirect::route('permission.index');
     }
